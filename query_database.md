@@ -1,19 +1,48 @@
-Single query
+query_database.py
 ============
 
-This option allows to **identify the best FISH probe** in a specific genomic region. Specifically, it provides a number of candidates from which the user can choose its favorite.
+This script allows to **identify the best FISH probe** in a specific genomic region. Specifically, it provides a number of candidates from which the user can choose its favorite.
 
-The form is divided into four panels:
+```
+usage: query_database.py [-h] [--description descr] [--feat_order fo]
+                         [--f1_thr ft] [--min_d md] [--n_oligo no]
+                         [--n_probes np] [--max_probes mp] [--win_shift ws]
+                         [--outdir od] [-f [F]]
+                         id name chr start end db
 
-* The **general** panel contains the query's ``name`` and ``description`` (quite self-explanatory).
-* In the **where** panel the user can specify the **genomic region** of interest, with the ``chromosome``, ``start`` and ``end`` parameters (i.e., ``chr:start-end``). Moreover, it is possible to select the ``database`` from which to extract the oligomers. The choice of the database is critical, since it influences both the length of the oligomers and their definition of *uniqueness*.
-* The **what** panel allows to specify how many ``oligomers`` the probe must have, and the maximum number of desired output candidates (``max output probes``). If this last parameter is set to ``-1``, all the candidates that were found will be reported. It is also possible to specify a ``threshold`` (from 0 to 1) used to define a range around the best value of the so-called *first feature*, which will be explained in detail in the **algorithm** section below.
-* In the **advanced settings** the user can choose which, between **centrality**, **size** and **spread**, should be used as 1st, 2nd and 3rd feature, respectively. The meaning of these 3 features is explained in detail in the **algorithm** section below, together with the formal definition of the 3 measures.
+Query database for a FISH probe.
+
+positional arguments:
+  id                   Query ID.
+  name                 Query name.
+  chr                  Chromosome in "ChrXX" format.
+  start                Probe range starting position.
+  end                  Probe range ending position.
+  db                   Database folder path.
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --description descr  Query description
+  --feat_order fo      Comma-separated features.
+  --f1_thr ft          Threshold of first feature filter, used to identify a
+                       range around the best value. It's the percentage range
+                       around it. Accepts values from 0 to 1.
+  --min_d md           Minimum distance between consecutive oligos.
+  --n_oligo no         Number of oligos per probe.
+  --n_probes np        Number of probes to design.
+  --max_probes mp      Maximum number of output probe candidates. Set to "-1"
+                       to retrieve all candidates.
+  --win_shift ws       Window size fraction for shifting the windows.
+  --outdir od          Query output directory.
+  -f [F]               Force overwriting of the query if already run.
+
+```
+
 
 Probe characteristics
 ---------------------
 
-The tools focuses on three possible probe characteristics:
+The script focuses on three possible probe characteristics:
 
 * **Size** (:math:`I_i`). The size of the genomic regione covered by the probe. It is calculated as the difference between the end position of the last :math:`k`-mer (:math:`E`) and the start position of the first :math:`k`-mer (:math:`S`).
 
@@ -77,4 +106,4 @@ Every candidate probe :math:`C_i` with an :math:`f_{1,i} not in I_{f_1}` is disc
 
 Then, :math:`f_2` and :math:`f_3` are calculated for every remaining probe candidate. The candidates are ranked based on :math:`f_2` (with the :math:`best` on top) and returned as the output.
 
-The tool also produces plots to easily understand how the probe is structured. More details about the plots are available in the ``query`` and ``candidate`` pages.
+The tool also produces plots to easily understand how the probe is structured.
