@@ -11,7 +11,7 @@ A web-interface to interact with the `query_database.py` script is available on 
 
 0. Create `mkdir ../db/` and `mkdir ../query/`.
 1. Run `extract_database.py db_path table_name --outdir ../db/` to generate the database.
-2. Run `query_database.py` to identify probes. For more details, check [the documentation](query_database.md).
+2. Run `query_database.py` to identify probes. For more details, check [the documentation](docs/query_database.md).
 
 ## @TODO
 
