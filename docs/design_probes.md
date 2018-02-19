@@ -1,10 +1,10 @@
-query_database.py
+design_probes.py
 ============
 
 This script allows to **identify the best FISH probe** in a specific genomic region. Specifically, it provides a number of candidates from which the user can choose its favorite.
 
 ```
-usage: query_database.py [-h] [--description descr] [--feat_order fo]
+usage: design_probes.py [-h] [--description descr] [--feat_order fo]
                          [--f1_thr ft] [--min_d md] [--n_oligo no]
                          [--n_probes np] [--max_probes mp] [--win_shift ws]
                          [--outdir od] [-f [F]]
