@@ -48,7 +48,7 @@ parser.add_argument('id', type = str, nargs = 1,
 parser.add_argument('name', type = str, nargs = 1,
 	help = 'Query name.')
 parser.add_argument('chrom', metavar = 'chr', type = str, nargs = 1,
-	help = 'Chromosome in "ChrXX" format.')
+	help = 'Chromosome in "chrXX" format.')
 parser.add_argument('start', metavar = 'start', type = int, nargs = 1,
 	help = 'Probe range starting position.')
 parser.add_argument('end', metavar = 'end', type = int, nargs = 1,
@@ -58,7 +58,8 @@ parser.add_argument('db', metavar = 'db', type = str, nargs = 1,
 parser.add_argument('--description', metavar = 'descr', type = str, nargs = 1,
 	default = [''], help = 'Query description')
 parser.add_argument('--feat_order', metavar = 'fo', type = str, nargs = 1,
-	default = ['size,spread,centrality'], help = 'Comma-separated features.')
+	default = ['size,spread,centrality'], help = '''Comma-separated features.
+	Available features: size, spread, centrality.''')
 parser.add_argument('--f1_thr', metavar = 'ft', type = float, nargs = 1,
 	default = [1.1], help = 'Threshold of first feature filter, '
 	+ 'used to identify a range around the best value. '
@@ -561,9 +562,13 @@ def get_seq(chrom, start, stop, genome = None):
 	data = file.read()
 	file.close()
 
-	# Extract sequence
-	seq = xml.etree.ElementTree.fromstring(data)[0][0].text
-	seq = seq.replace('\n', '').replace('\r', '').replace(' ', '')
+	try:
+		# Extract sequence
+		seq = xml.etree.ElementTree.fromstring(data)[0][0].text
+		seq = seq.replace('\n', '').replace('\r', '').replace(' ', '')
+	except xml.etree.ElementTree.ParseError as e:
+		print("Cannot retrieve sequence for: %s" % str((genome, chrom, start, stop)))
+		raise
 
 	# Output
 	return(seq)

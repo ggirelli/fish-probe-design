@@ -5,17 +5,17 @@ This script allows to **identify the best FISH probe** in a specific genomic reg
 
 ```
 usage: design_probes.py [-h] [--description descr] [--feat_order fo]
-                         [--f1_thr ft] [--min_d md] [--n_oligo no]
-                         [--n_probes np] [--max_probes mp] [--win_shift ws]
-                         [--outdir od] [-f [F]]
-                         id name chr start end db
+                        [--f1_thr ft] [--min_d md] [--n_oligo no]
+                        [--n_probes np] [--max_probes mp] [--win_shift ws]
+                        [--outdir od] [-f [F]]
+                        id name chr start end db
 
 Query database for a FISH probe.
 
 positional arguments:
   id                   Query ID.
   name                 Query name.
-  chr                  Chromosome in "ChrXX" format.
+  chr                  Chromosome in "chrXX" format.
   start                Probe range starting position.
   end                  Probe range ending position.
   db                   Database folder path.
@@ -23,7 +23,8 @@ positional arguments:
 optional arguments:
   -h, --help           show this help message and exit
   --description descr  Query description
-  --feat_order fo      Comma-separated features.
+  --feat_order fo      Comma-separated features. Available features: size,
+                       spread, centrality.
   --f1_thr ft          Threshold of first feature filter, used to identify a
                        range around the best value. It's the percentage range
                        around it. Accepts values from 0 to 1.
@@ -35,7 +36,6 @@ optional arguments:
   --win_shift ws       Window size fraction for shifting the windows.
   --outdir od          Query output directory.
   -f [F]               Force overwriting of the query if already run.
-
 ```
 
 
