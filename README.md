@@ -1,3 +1,5 @@
+> **Disclaimer: this repo has been archived and moved to [fish-prode](https://github.com/ggirelli/fish-prode)!**
+
 fish-probe-design
 ===
 
